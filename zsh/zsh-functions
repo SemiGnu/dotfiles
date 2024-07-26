@@ -1,0 +1,120 @@
+# Base
+function zsh_add_file() {
+    # echo "$ZSH_CONFIG_PATH/$1"
+    [ -f "$ZSH_CONFIG_PATH/$1" ] && source "$ZSH_CONFIG_PATH/$1"
+}
+
+function zsh_add_plugin() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [[ -d "$ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME" ]]; then 
+        # For plugins
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME"
+    fi
+}
+
+function zsh_add_completion() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [ -d "$ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME" ]; then 
+        # For completions
+		completion_file_path=$(ls $ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME/_*)
+		fpath+="$(dirname "${completion_file_path}")"
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME"
+		fpath+=$(ls $ZSH_CONFIG_PATH/plugins/$PLUGIN_NAME/_*)
+        [ -f $ZSH_CONFIG_PATH/.zccompdump ] && $ZSH_CONFIG_PATH/.zccompdump
+    fi
+	completion_file="$(basename "${completion_file_path}")"
+	if [ "$2" = true ] && compinit "${completion_file:1}"
+}
+
+function zsh_prompt_toggle () {
+    if [[ $1 = "k8s" && ! -f $ZSH_CONFIG_PATH/toggles/.k8s ]]; then
+        mkdir -p $ZSH_CONFIG_PATH/toggles &> /dev/null
+        touch $ZSH_CONFIG_PATH/toggles/.k8s
+    elif [[ $1 = "k8s" && -f $ZSH_CONFIG_PATH/toggles/.k8s  ]]; then
+        rm $ZSH_CONFIG_PATH/toggles/.k8s
+    elif [[ $1 = "az"  &&  ! -f $ZSH_CONFIG_PATH/toggles/.az ]]; then
+        mkdir -p $ZSH_CONFIG_PATH/toggles &> /dev/null
+        touch $ZSH_CONFIG_PATH/toggles/.az
+    elif [[ $1 = "az"  &&  -f $ZSH_CONFIG_PATH/toggles/.az ]]; then
+        rm $ZSH_CONFIG_PATH/toggles/.az
+    fi
+}
+
+# k8s
+function k8s_set_namespace () {
+    ns=$1
+    if [[ -z $ns ]]
+    then
+        ns=default
+    fi
+    kubectl config set-context --current --namespace=$ns
+}
+
+function _k8s_set_namespace () {
+    kns_completions="($(kubectl get namespaces | tail -n +2 | awk '{print "\047"$1"\047"}' | tr "\n" " "))"
+    _describe 'command' $kns_completions
+}
+compdef _k8s_set_namespace k8s_set_namespace
+
+
+# Git
+function git_push_new_branch () {
+    current_branch=$(git branch --show-current)
+    git push --set-upstream origin $current_branch
+}
+
+function git_add_all_and_commit () {
+    git add -A
+    git commit -m "$1"
+}
+
+# dotnet
+function _dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+  reply=( "${(ps:\n:)completions}" )
+}
+compctl -K _dotnet_zsh_complete dotnet
+
+source <(kubectl completion zsh)
+
+
+# encoding
+function base64-encode() {
+    echo -n $1 | base64
+}
+
+function base64-decode() {
+    echo -n $1 | base64 -d
+}
+
+function url-decode() {
+    echo -n $1 | sed 's/%/\\x/g' | xargs -0 printf "%b"
+}
+
+function url-encode() {
+  local string="${1}"
+  local strlen=${#string}
+  local encoded=""
+  local pos c o
+
+  for (( pos=0 ; pos<strlen ; pos++ )); do
+     c=${string:$pos:1}
+     case "$c" in
+        [-_.~a-zA-Z0-9] ) o="${c}" ;;
+        * )               printf -v o '%%%02x' "'$c"
+     esac
+     encoded+="${o}"
+  done
+  echo "${encoded}"    
+}
+
+function b64e() { echo $(base64-encode $1) }
+function b64d() { echo $(base64-decode $1) }
+function urld() { echo $(url-decode $1) }
+function urle() { echo $(url-encode $1) }

@@ -1,0 +1,22 @@
+# ls
+alias ll='ls -alFh'
+alias la='ls -A'
+alias l='ls -CF'
+
+# kubectl
+alias kns=k8s_set_namespace
+alias k=kubectl
+alias kcuc='kubectl config use-context'
+alias kccc='kubectl config current-context'
+alias kcgc='kubectl config get-contexts'
+alias kaf='kubectl apply -f'
+
+# git
+alias gcam=git_add_all_and_commit
+alias gpnb=git_push_new_branch
+
+# dotnet ef
+alias def='dotnet ef'
+alias defma='dotnet ef migrations add'
+alias defmr='dotnet ef migrations remove'
+alias defdu='dotnet ef database update'

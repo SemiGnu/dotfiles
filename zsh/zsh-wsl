@@ -1,0 +1,45 @@
+
+export PATH="/snap/bin:$HOME/.dotnet/tools:$PATH"
+export KUBECONFIG=/mnt/c/Users/twinj/.kube/config
+
+function winhome {
+  cd /mnt/c/Users/$1
+}
+
+function _winhome {
+  _describe 'command' "($(ls /mnt/c/Users/))"
+}
+compdef _winhome winhome
+
+# checks to see if we are in a windows or linux dir
+function isWinDir {
+  case $PWD/ in
+    /mnt/*) return $(true);;
+    *) return $(false);;
+  esac
+}
+
+# wrap the git command to either run windows git or linux
+function git {
+  if isWinDir ; then
+    git.exe "$@"
+  else
+    /usr/bin/git "$@"
+  fi
+}
+
+function kubectl {
+  if isWinDir ; then
+    kubectl.exe "$@"
+  else
+    /snap/bin/kubectl "$@"
+  fi
+}
+
+function derp {
+  if isWinDir ; then
+    echo "windows"
+  else
+    echo "linux"
+  fi
+}

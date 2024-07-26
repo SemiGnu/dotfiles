@@ -1,6 +1,7 @@
-**/*
+/*
+/*/
 !.gitignore
-!btop/**/*
-!zsh/**/*
+!/btop/
+!/zsh/
 !README.md
 

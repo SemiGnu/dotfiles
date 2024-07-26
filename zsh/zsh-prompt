@@ -1,0 +1,74 @@
+function kube_prompt_info () {  
+    if [[ ! -f $ZSH_CONFIG_PATH/toggles/.k8s || ! -f $HOME/.kube/config ]]; then
+        return
+    fi
+    k8s_context=$(kubectl config get-contexts | grep '*')   
+    k8s_context_name=$(echo $k8s_context | awk '{print $2}')
+    k8s_context_namespace=$(echo $k8s_context | awk '{print $5}')
+    if [[ -z $k8s_context_namespace ]]
+    then
+        k8s_context_namespace='default'
+    fi
+
+    main_color='012'
+    ctx_color='009'
+
+    if [[ $k8s_context_name = $K8S_MAIN_CONTEXT ]]
+    then
+        ctx_color='010'
+    fi
+
+    kube_prompt_info="%F{$main_color}k8s:(%f%F{$ctx_color}$k8s_context_name/$k8s_context_namespace%f%F{$main_color})%f "
+
+    echo $kube_prompt_info
+}
+
+function git_prompt_info() {
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        return
+    fi
+    git_status=$(git status)
+    git_branch=$(echo $git_status | grep 'On branch' | awk '{print $3}')
+    main_color='012'
+    git_status_color='010'
+    if [[ $git_branch = "main" ]]
+    then
+        git_status_color='009'
+    fi
+
+    git_change=""
+    
+    if [[ ! $git_status =~ "working tree clean" ]]
+    then
+        git_change="%F{011}!%f"
+    fi
+
+    git_prompt_info="%F{$main_color}git:(%f%F{$git_status_color}$git_branch%f%F{$main_color})%f$git_change "
+
+    echo $git_prompt_info
+}
+
+function az_prompt_info() {
+    if [[ ! -f $ZSH_CONFIG_PATH/toggles/.az || ! -f $AZ_CONFIG_PATH/azureProfile.json ]]
+    then
+        return
+    fi
+    main_color='012'
+    sub_color='010'
+    sub_name=$(jq -r '.subscriptions[] | select(.isDefault == true) | .name' $AZ_CONFIG_PATH/azureProfile.json)
+    az_prompt_info="%F{$main_color}az:(%f%F{$sub_color}$sub_name%f%F{$main_color})%f$git_change "
+    echo $az_prompt_info
+}
+
+
+
+
+if [[ ! -z $USE_NAME_HOST ]]; then
+    NAME_HOST='%F{010}%n@%m%f:'
+fi
+
+setopt PROMPT_SUBST
+PROMPT="$NAME_HOST"'%F{014}%~%f $(git_prompt_info)$(kube_prompt_info)$(az_prompt_info)%F{010}➜%f '
+
+
+# ✗ ✓ ➘ ➚
