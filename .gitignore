@@ -2,6 +2,7 @@
 /*/
 !.gitignore
 !/btop/
+!/nvim/
 !/zsh/
 !README.md
 
