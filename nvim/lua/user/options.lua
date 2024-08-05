@@ -1,12 +1,12 @@
 local options = {  
   backup = false,                          -- creates a backup file
-  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
+  clipboard = 'unnamedplus',               -- allows neovim to access the system clipboard
   cmdheight = 2 ,                          -- more space in the neovim command line for displaying messages
-  completeopt = { "menuone", "noselect" }, -- mostly just for cmp
+  completeopt = { 'menuone', 'noselect' }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
-  fileencoding = "utf-8",                  -- the encoding written to a file
+  fileencoding = 'utf-8',                  -- the encoding written to a file
   hlsearch = true,                         -- highlight all matches on previous search pattern
-  ignorecase = true,                       -- ignore case in search patterns vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
+  ignorecase = true,                       -- ignore case in search patterns vim.opt.mouse = 'a'                             -- allow the mouse to be used in neovim
   pumheight = 10,                          -- pop up menu height
   showmode = true,                        -- we don't need to see things like -- INSERT -- anymore
   showtabline = 2,                         -- always show tabs
@@ -27,17 +27,17 @@ local options = {
   number = true,                           -- set numbered lines
   relativenumber = true,                   -- set relative numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
-  signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
-  wrap = false,                            -- display lines as one long line vim.opt.scrolloff = 8                           -- is one of my fav vim.opt.sidescrolloff = 8 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
+  signcolumn = 'yes',                      -- always show the sign column, otherwise it would shift the text each time
+  wrap = false,                            -- display lines as one long line vim.opt.scrolloff = 8                           -- is one of my fav vim.opt.sidescrolloff = 8 vim.opt.guifont = 'monospace:h17'               -- the font used in graphical neovim applications
   scrolloff = 8,                           -- buffer view around current line
   sidescrolloff = 8,                     -- buffer view around current line
 }
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append 'c'
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd 'set whichwrap+=<,>,[,],h,l'
 vim.cmd [[set iskeyword+=-]]
 
