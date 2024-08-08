@@ -197,3 +197,7 @@ bindsym $mod+r mode "resize"
 
 gaps inner 5px
 
+default_border pixel 4
+
+include ~/.config/i3/gruvbox
+
