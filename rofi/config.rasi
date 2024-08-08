@@ -1,5 +1,5 @@
 configuration{
-    modi: "run,window,combi";
+    modi: "combi,run,window";
     icon-theme: "Oranchelo";
     show-icons: true;
     terminal: "alacritty";
@@ -13,5 +13,6 @@ configuration{
     sidebar-mode: true;
 }
 
-@theme "catppuccin-mocha"
+/* @theme "catppuccin-mocha" */
+@theme "gruvbox-dark"
 
