@@ -5,5 +5,10 @@
 !/nvim/
 !/zsh/
 !/alacritty/
+!/i3/
+!/rofi/
+!/polybar/
+!/backgrounds/
+!/picom/
 !README.md
 
