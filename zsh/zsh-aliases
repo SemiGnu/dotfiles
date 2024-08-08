@@ -20,3 +20,7 @@ alias def='dotnet ef'
 alias defma='dotnet ef migrations add'
 alias defmr='dotnet ef migrations remove'
 alias defdu='dotnet ef database update'
+
+# python
+alias py='python3'
+
