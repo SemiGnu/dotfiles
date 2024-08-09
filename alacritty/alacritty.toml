@@ -27,6 +27,7 @@ save_to_clipboard = true
 
 [window]
 decorations = "Full"
+opacity = 0.8
 
 [window.dimensions]
 columns = 100
