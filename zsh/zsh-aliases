@@ -12,8 +12,10 @@ alias kcgc='kubectl config get-contexts'
 alias kaf='kubectl apply -f'
 
 # git
-alias gcam=git_add_all_and_commit
-alias gpnb=git_push_new_branch
+alias gcp='git commit -p'
+alias gpl='git pull'
+alias gff='git pull --ff-onll'
+alias gps='git push'
 
 # dotnet ef
 alias def='dotnet ef'
