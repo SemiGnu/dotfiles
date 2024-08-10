@@ -27,7 +27,7 @@ set $lightgray #bdae93
 # }
 
 # class                 border|backgr|text|indicator|child_border
-client.focused          $lightgray $lightgray $bg $purple $lightgray
+client.focused          $lightgray $lightgray $bg $purple $yellow
 client.focused_inactive $darkgray $darkgray $lightgray $purple $darkgray
 client.unfocused        $darkgray $darkgray $lightgray $purple $darkgray
 client.urgent           $red $red $white $red $red
