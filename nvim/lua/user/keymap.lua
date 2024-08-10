@@ -54,3 +54,6 @@ mapn('<A-k>', '<Esc>:m .-2<CR>==')
 mapv('<A-j>', ":m '>+1<CR>gv=gv")
 mapv('<A-k>', ":m '<-2<CR>==gv")
 
+mapn('<leader>f', '<cmd>lua require"telescope.builtin".find_files(require("telescope.themes").get_dropdown({ previewer = false }))<cr>')
+mapn('<leader><S-f>', '<cmd>Telescope live_grep<cr>')
+
