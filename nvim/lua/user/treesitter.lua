@@ -7,6 +7,9 @@ configs.setup {
   ensure_installed = 'all',
   sync_install = false,
   ignore_install = { '' }, -- List of parsers to ignore installing
+  autopairs = {
+    enable = true,
+  },
   highlight = {
     enable = true, -- false will disable the whole extension
     disable = { '' }, -- list of language that will be disabled
@@ -18,6 +21,10 @@ configs.setup {
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
-  }
+  },
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = true,
+  },
 }
 
