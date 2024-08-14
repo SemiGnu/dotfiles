@@ -1,5 +1,5 @@
-local status_ok, configs = pcall(require, 'nvim-treesitter.configs')
-if not status_ok then
+local config_status_ok, configs = pcall(require, 'nvim-treesitter.configs')
+if not config_status_ok then
   return
 end
 
@@ -22,9 +22,15 @@ configs.setup {
     extended_mode = true,
     max_file_lines = nil,
   },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = true,
-  },
+}
+
+local cc_status_ok, context_commentstring = pcall(require, 'ts_context_commentstring')
+if not cc_status_ok then
+  return
+end
+
+context_commentstring.setup {
+  enable = true,
+  enable_autocmd = true,
 }
 
