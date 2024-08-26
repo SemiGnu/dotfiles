@@ -82,6 +82,17 @@ return packer.startup(function(use)
     end
   }
 
+  use 'numToStr/Comment.nvim'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+  use 'lewis6991/gitsigns.nvim'
+
+  use 'nvim-tree/nvim-tree.lua'
+  use 'nvim-tree/nvim-web-devicons'
+
+  use "akinsho/bufferline.nvim"
+  use "moll/vim-bbye"
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

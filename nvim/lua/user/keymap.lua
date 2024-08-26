@@ -28,7 +28,7 @@ mapn('<C-k>', '<C-w>k')
 mapn('<C-l>', '<C-w>l')
 
 -- mapn('<leader>e', ':Lex 30<cr>')
-mapn('<leader>e', ':Lex 30<cr>')
+mapn('<leader>e', ':NvimTreeToggle<cr>')
 
 -- resize
 mapn('<C-Up>', ':resize +2<CR>')
