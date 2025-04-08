@@ -9,6 +9,10 @@
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
 set timeoutlen=1000
+" set relativenumber
+set ignorecase
+set smartcase
+set clipboard+=unnamedplus
 
 " Do incremental searching.
 set incsearch
@@ -26,22 +30,27 @@ Plug 'tpope/vim-commentary'
 imap jk <Esc>
 imap kj <Esc>
 
-map gl <Action>(ShowErrorDescription)
-map gll <Action>(ShowHoverInfo)
+"map gl <Action>(ShowErrorDescription)
+map <Backspace> <Action>(Back)
+map <Return> <Action>(Forward)
+map gl <Action>(ShowHoverInfo)
+map gh <Action>(GotoRelated)
+map ge <Action>(GotoNextError)
+map gE <Action>(GotoPreviousError)
+map gn <Action>(ReSharperGotoNextErrorInSolution)
+map gN <Action>(ReSharperGotoPreviousErrorInSolution)
+map gq <Action>(ReformatCode)
+vmap gq <Action>(ReformatCode)
 
 :vnoremap < <gv
 :vnoremap > >gv
 
-nnoremap yy "+yy
-vnoremap y "+y
-
-nnoremap p "+p
-vnoremap p "+p
-nnoremap P "+P
-vnoremap P "+P
-
 map <A-k> <Action>(MoveLineUp)
 map <A-j> <Action>(MoveLineDown)
+imap <A-k> <Action>(MoveLineUp)
+imap <A-j> <Action>(MoveLineDown)
+
+map K i<Return><Esc>
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
