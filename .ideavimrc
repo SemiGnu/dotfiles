@@ -45,6 +45,15 @@ vmap gq <Action>(ReformatCode)
 :vnoremap < <gv
 :vnoremap > >gv
 
+map <C-j> <C-d>
+map <C-k> <C-u>
+map <C-u> <C-u>zz
+map <C-d> <C-d>zz
+vmap <C-j> <C-d>
+vmap <C-k> <C-u>
+vnoremap <C-u> <C-u>zz
+vnoremap <C-d> <C-d>zz
+
 map <A-k> <Action>(MoveLineUp)
 map <A-j> <Action>(MoveLineDown)
 imap <A-k> <Action>(MoveLineUp)
