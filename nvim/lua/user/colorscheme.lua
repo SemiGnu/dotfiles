@@ -1,4 +1,6 @@
 local colorscheme = 'catppuccin-macchiato'
+--[[ local colorscheme = 'catppuccin-latte' ]]
+--[[ local colorscheme = 'one-nvim' ]]
 --[[ local colorscheme = 'gruvbox' ]]
 
 local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. colorscheme)

@@ -4,6 +4,8 @@
 !/btop/
 !/nvim/
 !/zsh/
+!/tmux/
+/tmux/plugins/*
 !/alacritty/
 !/i3/
 !/rofi/
