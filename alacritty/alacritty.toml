@@ -6,19 +6,16 @@ TERM = "xterm-256color"
 size = 14
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
+family = "JetBrainsMono Nerd Font Mono"
 style = "Regular"
 
 [font.bold]
-family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
 [selection]
@@ -36,5 +33,5 @@ lines = 30
 x = 5
 y = 6
 
-[general]
-import = ["~/.config/alacritty/gruvbox-material-alacritty.toml"]
+# [general]
+# import = ["~/.config/alacritty/gruvbox-material-alacritty.toml"]

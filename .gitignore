@@ -3,6 +3,8 @@
 !.gitignore
 !/btop/
 !/nvim/
+!/niri/
+!/waybar/
 !/zsh/
 !/tmux/
 /tmux/plugins/*
@@ -12,6 +14,7 @@
 !/polybar/
 !/backgrounds/
 !/picom/
+!/mako/
 !.ideavimrc
 !README.md
 
