@@ -16,13 +16,13 @@ include "layer-rules.kdl"
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
+spawn-at-startup "swayidle"
 spawn-at-startup "waybar"
 spawn-at-startup "seafile"
 spawn-at-startup "mako"
 spawn-at-startup "niri" "msg" "action" "focus-workspace" "home"
 spawn-at-startup "awww-daemon"
-// spawn-sh-at-startup "swaybg -i ~/Pictures/cherry-wallpaper.jpeg"
-spawn-at-startup "/home/semignu/.config/niri/scripts/hide.sh"
+spawn-sh-at-startup "bash /home/semignu/.config/niri/scripts/hide.sh >> /tmp/hide.log 2>&1"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
