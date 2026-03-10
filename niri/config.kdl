@@ -22,7 +22,7 @@ spawn-at-startup "seafile"
 spawn-at-startup "mako"
 spawn-at-startup "niri" "msg" "action" "focus-workspace" "home"
 spawn-at-startup "awww-daemon"
-spawn-sh-at-startup "bash /home/semignu/.config/niri/scripts/hide.sh >> /tmp/hide.log 2>&1"
+spawn-sh-at-startup "systemctl --user import-environment NIRI_SOCKET WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP; systemctl --user restart niri-hide.service"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
