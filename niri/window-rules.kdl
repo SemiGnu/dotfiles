@@ -6,6 +6,7 @@
 // by setting an empty default-column-width.
 window-rule {
     match app-id="Alacritty"
+    match app-id="steam"
     match app-id="discord"
     default-column-width {
         proportion 0.25

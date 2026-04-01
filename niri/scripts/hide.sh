@@ -1,88 +1,44 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-HIDE_ID="${HIDE_ID:-1}"
-HIDE_IMAGE="/home/semignu/Pictures/black.jpg"
-SHOW_IMAGE="/home/semignu/Pictures/cherry-wallpaper.jpeg"
-HIDE_STEP="25"
-SHOW_STEP="15"
-TRANSITION_FPS="120"
-
-bar_hidden=""
+HIDE_ID="${1:-1}"
+BAR_INDEX="${BAR_INDEX:-0}"
 
 hide_bar() {
-  killall -SIGUSR1 waybar 2>/dev/null || true
+    dms ipc call bar hide index "$BAR_INDEX" >/dev/null 2>&1 || true
 }
 
 show_bar() {
-  killall -SIGUSR2 waybar 2>/dev/null || true
+    dms ipc call bar reveal index "$BAR_INDEX" >/dev/null 2>&1 || true
 }
 
-set_wallpaper() {
-  local image_path="$1"
-  local step="$2"
+current_mode=""
 
-  if command -v awww >/dev/null 2>&1; then
-    awww img "$image_path" --transition-step "$step" --transition-fps "$TRANSITION_FPS" || true
-  fi
-}
+apply_state() {
+    local workspace_id="$1"
 
-apply_visibility_state() {
-  local should_hide="$1"
-
-  if [[ "$bar_hidden" == "$should_hide" ]]; then
-    return
-  fi
-
-  bar_hidden="$should_hide"
-  if [[ "$should_hide" == "1" ]]; then
-    hide_bar
-    set_wallpaper "$HIDE_IMAGE" "$HIDE_STEP"
-  else
-    show_bar
-    set_wallpaper "$SHOW_IMAGE" "$SHOW_STEP"
-  fi
-}
-
-extract_focused_id() {
-  local line="$1"
-  local focused_id=""
-
-  focused_id="$(jq -r '.WorkspaceActivated.id // empty' <<<"$line" 2>/dev/null || true)"
-  if [[ -n "$focused_id" ]]; then
-    printf '%s\n' "$focused_id"
-    return 0
-  fi
-
-  focused_id="$(jq -r '.WorkspacesChanged.workspaces? // [] | map(select(.is_focused == true)) | .[0].id // empty' <<<"$line" 2>/dev/null || true)"
-  if [[ -n "$focused_id" ]]; then
-    printf '%s\n' "$focused_id"
-  fi
-}
-
-consume_event_stream_once() {
-  if [[ -z "${NIRI_SOCKET:-}" ]]; then
-    echo "hide.sh: NIRI_SOCKET is not set; waiting for environment" >&2
-    return 1
-  fi
-
-  while IFS= read -r line; do
-    jq -e . >/dev/null 2>&1 <<<"$line" || continue
-
-    focused_id="$(extract_focused_id "$line" || true)"
-    [[ -z "$focused_id" ]] && continue
-
-    if [[ "$focused_id" == "$HIDE_ID" ]]; then
-      apply_visibility_state "1"
+    if [[ "$workspace_id" == "$HIDE_ID" ]]; then
+        if [[ "$current_mode" != "hidden" ]]; then
+            hide_bar
+            current_mode="hidden"
+            echo "hid bar on workspace id $workspace_id"
+        fi
     else
-      apply_visibility_state "0"
+        if [[ "$current_mode" != "shown" ]]; then
+            show_bar
+            current_mode="shown"
+            echo "showed bar on workspace id $workspace_id"
+        fi
     fi
-  done < <({ printf '"EventStream"\n'; cat; } | socat - UNIX-CONNECT:"$NIRI_SOCKET")
 }
 
-while true; do
-  if consume_event_stream_once; then
-    continue
-  fi
-  sleep 0.1
+niri msg --json event-stream | while IFS= read -r line; do
+    workspace_id="$(
+        jq -r '
+            .WorkspaceActivated.id // empty
+        ' <<<"$line"
+    )"
+
+    [[ -n "$workspace_id" ]] || continue
+    apply_state "$workspace_id"
 done
