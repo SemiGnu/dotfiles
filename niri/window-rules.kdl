@@ -40,3 +40,16 @@ window-rule {
     geometry-corner-radius 4
     clip-to-geometry true
 }
+
+window-rule {
+  match app-id="eu4"
+  match app-id="ck3"
+  match title="World of Warcraft"
+  open-floating false
+}
+
+window-rule {
+  match app-id="steam_app_0"
+  exclude title=".+"
+  opacity 0.0
+}
