@@ -40,10 +40,6 @@ mapn('<C-Right>', ':vertical resize +2<CR>')
 mapn('<S-l>', ':bnext<CR>')
 mapn('<S-h>', ':bprevious<CR>')
 
--- escape
-mapi('jk','<ESC>')
-mapi('kj','<ESC>')
-
 -- indent
 mapv('<', '<gv')
 mapv('>', '>gv')
