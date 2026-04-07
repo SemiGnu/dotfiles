@@ -1,103 +1,27 @@
-local fn = vim.fn
+vim.pack.add({
+  'https://github.com/nvim-lua/popup.nvim', -- An implementation of the Popup API from vim in Neovim
+  'https://github.com/nvim-lua/plenary.nvim', -- Useful lua functions used ny lots of plugins
+  'https://github.com/catppuccin/nvim',
+  'https://github.com/Th3Whit3Wolf/one-nvim',
+  'https://github.com/ellisonleao/gruvbox.nvim',
 
--- autoinstall packer
-local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system {
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path,
-  }
-  print 'Installing pakcer close and reopen neovim'
-  vim.cmd [[packadd packer.nvim]]
-end
+  'https://github.com/seblyng/roslyn.nvim',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/nvim-tree/nvim-tree.lua',
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/mason-org/mason.nvim',
 
--- reload nvim after edits to plugins.lua
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+  'https://github.com/hrsh7th/nvim-cmp', -- The completion plugin
+  'https://github.com/hrsh7th/cmp-buffer', -- buffer completions
+  'https://github.com/hrsh7th/cmp-path', -- path completions
+  'https://github.com/hrsh7th/cmp-cmdline', -- cmdline completions
+  'https://github.com/saadparwaiz1/cmp_luasnip', -- snippet completions
+  'https://github.com/hrsh7th/cmp-nvim-lsp',
+  'https://github.com/hrsh7th/cmp-nvim-lua',
 
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  return
-end
-
--- packer popup window
-packer.init {
-  display = {
-    open_fn = function()
-      return require('packer.util').float { border = 'rounded' }
-    end,
-  },
-}
-
--- install your plugins here
-return packer.startup(function(use)
-
-  use 'wbthomason/packer.nvim' -- Have packer manage itself
-  use 'nvim-lua/popup.nvim' -- An implementation of the Popup API from vim in Neovim
-  use 'nvim-lua/plenary.nvim' -- Useful lua functions used ny lots of plugins
-  use { 'catppuccin/nvim', as = 'catppuccin' }
-  use { 'Th3Whit3Wolf/one-nvim', as = 'atom-one' }
-  use { 'ellisonleao/gruvbox.nvim', as = 'gruvbox' }
-
-  -- cmp plugins
-  use 'hrsh7th/nvim-cmp' -- The completion plugin
-  use 'hrsh7th/cmp-buffer' -- buffer completions
-  use 'hrsh7th/cmp-path' -- path completions
-  use 'hrsh7th/cmp-cmdline' -- cmdline completions
-  use 'saadparwaiz1/cmp_luasnip' -- snippet completions
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-nvim-lua'
-
-   -- snippets
-  use 'L3MON4D3/LuaSnip' --snippet engine
-  use 'rafamadriz/friendly-snippets' -- a bunch of snippets to use
-
-  -- LSP
-  use 'neovim/nvim-lspconfig' -- enable LSP
-  -- use 'williamboman/nvim-lsp-installer' -- ls installer
-  use 'williamboman/mason.nvim' -- ls installer
-  use 'williamboman/mason-lspconfig.nvim' -- ls installerA
-
-  use 'nvim-telescope/telescope.nvim'
-  use 'nvim-telescope/telescope-media-files.nvim'
-
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  }
-  use 'p00f/nvim-ts-rainbow'
-
-  use {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup {}
-    end
-  }
-
-  use 'numToStr/Comment.nvim'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-
-  use 'lewis6991/gitsigns.nvim'
-
-  use 'nvim-tree/nvim-tree.lua'
-  use 'nvim-tree/nvim-web-devicons'
-
-  use "akinsho/bufferline.nvim"
-  use "moll/vim-bbye"
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if PACKER_BOOTSTRAP then
-    require('packer').sync()
-  end
-end)
-
+  'https://github.com/nvim-telescope/telescope.nvim',
+  'https://github.com/nvim-telescope/telescope-media-files.nvim',
+  'https://github.com/numToStr/Comment.nvim',
+  'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
+  'https://github.com/lewis6991/gitsigns.nvim'
+})
