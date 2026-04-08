@@ -1,0 +1,10 @@
+workspace "game" {
+  layout {
+    gaps 0
+    background-color "#000000"
+    focus-ring{
+      active-color "#222222"
+    }
+  }
+}
+workspace "home"

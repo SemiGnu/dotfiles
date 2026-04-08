@@ -1,0 +1,21 @@
+anchor=top-right
+width=300
+height=110
+margin=5
+padding=0,8,8
+max-icon-size=64
+border-radius=8
+default-timeout=10000
+ignore-timeout=1
+
+# Colors
+
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#303446
+progress-color=over #313244
+border-size=2
+
+[urgency=high]
+border-color=#f5a97f
+border-size=2

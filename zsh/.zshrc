@@ -34,3 +34,7 @@ zsh_add_plugin 'zsh-users/zsh-autosuggestions'
 zsh_add_plugin 'zsh-users/zsh-syntax-highlighting'
 
 [ -f "/home/twinj/.ghcup/env" ] && . "/home/twinj/.ghcup/env" # ghcup-env
+. "$HOME/.local/bin/env"
+
+# opencode
+export PATH=/home/semignu/.opencode/bin:$PATH
