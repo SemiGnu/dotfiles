@@ -4,15 +4,15 @@ Plug 'tpope/vim-commentary'
 
 set scrolloff=5
 set timeoutlen=1000
-set relativenumber
+"set relativenumber
 set ignorecase
 set smartcase
 set clipboard+=unnamedplus
 set incsearch
 
 "blursed
-imap jk <Esc>
-imap kj <Esc>
+"imap jk <Esc>
+"imap kj <Esc>
 
 map <c-w> /\u<Enter>:noh<Enter>
 map <c-e> l/\u<Enter>h:noh<Enter>
