@@ -1,6 +1,7 @@
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
+Plug 'bkad/CamelCaseMotion'
 
 set scrolloff=5
 set timeoutlen=1000
@@ -9,14 +10,15 @@ set ignorecase
 set smartcase
 set clipboard+=unnamedplus
 set incsearch
+let mapleader=" "
 
-"blursed
-"imap jk <Esc>
-"imap kj <Esc>
+let g:camelcasemotion_key = '<leader>'
 
-map <c-w> /\u<Enter>:noh<Enter>
-map <c-e> l/\u<Enter>h:noh<Enter>
-map <c-b> ?\u<Enter>:noh<Enter>
+nnoremap <leader>t <Action>(ActivateTerminalToolWindow)
+
+map <c-w> <leader>w
+map <c-e> <leader>e
+map <c-b> <leader>b
 
 map <Backspace> <Action>(Back)
 map <Return> <Action>(Forward)
