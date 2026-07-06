@@ -49,7 +49,8 @@ window-rule {
 }
 
 window-rule {
-  match app-id="steam_app_0"
+  match app-id="steam_app_2544977795"
   exclude title=".+"
   opacity 0.0
+  default-floating-position x=0 y=3200 relative-to="top-left"
 }
