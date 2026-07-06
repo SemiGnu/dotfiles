@@ -2,9 +2,9 @@ function kube_prompt_info () {
     if [[ ! -f $ZSH_CONFIG_PATH/toggles/.k8s || ! -f $HOME/.kube/config ]]; then
         return
     fi
-    k8s_context=$(kubectl config get-contexts | grep '*')   
-    k8s_context_name=$(echo $k8s_context | awk '{print $2}')
-    k8s_context_namespace=$(echo $k8s_context | awk '{print $5}')
+    k8s_context_name=$(yq -r '.["current-context"]' $HOME/.kube/config)
+    k8s_context_namespace=$(yq -r --arg ctx "$k8s_context_name" '.contexts | first(.[] | select(.name == $ctx)).context.namespace' $HOME/.kube/config)
+
     if [[ -z $k8s_context_namespace ]]
     then
         k8s_context_namespace='default'
