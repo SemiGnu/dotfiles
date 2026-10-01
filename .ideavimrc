@@ -2,7 +2,11 @@
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 Plug 'bkad/CamelCaseMotion'
+Plug 'YankRing.vim'
 
+autocmd BufEnter * stopinsert
+
+vim-scripts/
 set scrolloff=5
 set timeoutlen=1000
 "set relativenumber
@@ -16,19 +20,21 @@ let g:camelcasemotion_key = '<leader>'
 
 nnoremap <leader>t <Action>(ActivateTerminalToolWindow)
 
+map gc <Action>(ChangesView.Browse)
+
 map <c-w> <leader>w
 map <c-e> <leader>e
 map <c-b> <leader>b
 
 map <Backspace> <Action>(Back)
-map <Return> <Action>(Forward)
+map <Enter> <Action>(Forward)
 map gl <Action>(ShowHoverInfo)
 map gh <Action>(GotoRelated)
 map ge <Action>(GotoNextError)
 noremap gE <Action>(GotoPreviousError)
 map gn <Action>(ReSharperGotoNextErrorInSolution)
 noremap gN <Action>(ReSharperGotoPreviousErrorInSolution)
-map gq <Action>(ReformatCode)
+map gl <Action>(ShowHoverInfo)
 vmap gq <Action>(ReformatCode)
 
 :vnoremap < <gv
