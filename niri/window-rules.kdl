@@ -46,6 +46,7 @@ window-rule {
   match app-id="ck3"
   match title="World of Warcraft"
   open-floating false
+  open-fullscreen false
 }
 
 window-rule {
